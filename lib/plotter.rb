@@ -3,6 +3,10 @@ require 'graphic_parser'
 class Plotter
   attr_accessor :domain, :precision
   
+  def initialize(domain=(-5..5), precision=1)
+    @domain, @precision = domain, precision
+  end
+  
   def plot(*function)
     functions = {}
     graphic_parser = GraphicParser.new
