@@ -1,4 +1,5 @@
 require 'graphic_parser'
+require 'csv'
 
 class Plotter
   attr_accessor :domain, :precision
@@ -24,5 +25,15 @@ class Plotter
       functions[f] = graph
     end
     functions
+  end
+  
+  def plot_csv(function)
+    csv = CSV.generate do |c|
+      c << ['X', 'Y']
+      plot(function).values.first.each do |k,v|
+        c << [k, v]
+      end
+    end
+    csv
   end
 end
