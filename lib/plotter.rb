@@ -18,7 +18,8 @@ class Plotter
       parsed_function = graphic_parser.parse f
       x = @domain.min
       while x <= @domain.max do
-        graph[x] = parsed_function.call(x)
+        y = parsed_function.call(x).round 3
+        graph[x.round 3] = y.round 3
         x += precision
       end
       

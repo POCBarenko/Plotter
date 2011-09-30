@@ -7,10 +7,20 @@ get '/' do
   erb :index
 end
 
-get '/:function' do
-  Plotter.new.plot(params[:function]).values.first.to_s
+get '/function/:function.csv' do
+  domain = ((params[:min] ||-5) .. (params[:max] || 5))
+  precision = params[:precision] || 0.1
+
+  p domain
+  p precision
+
+  Plotter.new(domain, precision).plot_csv(params[:function])
 end
 
-get '/:function/csv' do
-  Plotter.new.plot_csv(params[:function])
+get '/function/:function' do
+  domain = ((params[:min] ||-5) .. (params[:max] || 5))
+  precision = params[:precision] || 0.1
+  
+  Plotter.new(domain, precision).plot(params[:function]).values.first.to_s
 end
+
